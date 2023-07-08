@@ -1,0 +1,105 @@
+command /killeffects:
+    trigger:
+        set metadata tag "Killeffects" of player to chest inventory with 1 row named "&eDeath Effects"
+        set slot 0 of metadata tag "Killeffects" of player to lime dye named "&c&lFire Effect"
+        set slot 1 of metadata tag "Killeffects" of player to lime dye named "&6&lTotem Effect"
+        set slot 2 of metadata tag "Killeffects" of player to lime dye named "&f&lExplosion Effect"
+        set slot 3 of metadata tag "Killeffects" of player to lime dye named "&x&f&b&9&0&0&b&lW&x&f&c&9&4&1&3&la&x&f&c&9&8&1&c&lx &x&f&d&9&c&2&4&lO&x&f&d&a&0&2&c&ln Effect"
+        set slot 4 of metadata tag "Killeffects" of player to lime dye named "&b&lRain Effect"
+        set slot 5 of metadata tag "Killeffects" of player to gray stained glass named "&6"
+        set slot 6 of metadata tag "Killeffects" of player to gray stained glass named "&6"
+        set slot 7 of metadata tag "Killeffects" of player to gray stained glass named "&6"
+        set slot 8 of metadata tag "Killeffects" of player to barrier named "&cClose Menu"
+        open (metadata tag "Killeffects" of player) to player
+
+on inventory click:
+    if name of event-inventory is "&eDeath Effects":
+        if index of event-slot = 0:
+            cancel event
+            if {killeffects::%player's uuid%} is set:
+                delete {killeffects::%player's uuid%::*}
+                set {killeffects::%player's uuid%::Fire} to true
+                set {killeffects::%player's uuid%} to {killeffects::%player's uuid%::Fire}
+                send "&fYour kill effect is now &c&lFire Effect"
+                cancel event
+        if index of event-slot = 1:
+            cancel event
+            if {killeffects::%player's uuid%} is set:
+                delete {killeffects::%player's uuid%::*}
+                set {killeffects::%player's uuid%::Totem} to true
+                set {killeffects::%player's uuid%} to {killeffects::%player's uuid%::Totem}
+                send "&fYour kill effect is now &6&lTotem Effect"
+                cancel event
+        if index of event-slot = 2:
+            cancel event
+            if {killeffects::%player's uuid%} is set:
+                delete {killeffects::%player's uuid%::*}
+                set {killeffects::%player's uuid%::Explosion} to true
+                set {killeffects::%player's uuid%} to "%{killeffects::%player's uuid%::Explosion}%"
+                send "&fYour kill effect is now &f&lExplosion Effect"
+                cancel event
+        if index of event-slot = 3:
+            cancel event
+            if {killeffects::%player's uuid%} is set:
+                delete {killeffects::%player's uuid%::*}
+                set {killeffects::%player's uuid%::WaxOn} to true
+                set {killeffects::%player's uuid%} to {killeffects::%player's uuid%::WaxOn}
+                send "&fYour kill effect is now &x&f&b&9&0&0&b&lW&x&f&c&9&4&1&3&la&x&f&c&9&8&1&c&lx &x&f&d&9&c&2&4&lO&x&f&d&a&0&2&c&ln Effect"
+                cancel event
+        if index of event-slot = 4:
+            cancel event
+            if {killeffects::%player's uuid%} is set:
+                delete {killeffects::%player's uuid%::*} 
+                set {killeffects::%player's uuid%::Rain} to true
+                set {killeffects::%player's uuid%} to {killeffects::%player's uuid%::Rain}
+                send "&fYour kill effect is now &b&lRain Effect"
+                cancel event
+        if index of event-slot = 5:
+            cancel event
+        if index of event-slot = 6:
+            cancel event
+        if index of event-slot = 7:
+            cancel event
+        if index of event-slot = 8:
+            cancel event
+            close player's inventory
+
+on death of player:
+    if attacker is player:
+        if {killeffects::%attacker's uuid%::Rain} is true:
+            make 2000 of splash at victim with offset vector(1, 1.5, 1) with extra 0.02
+            play sound "item.totem.use" with volume 1 and pitch 1 at victim
+        if {killeffects::%attacker's uuid%::Totem} is true:
+            make 200 of totem_of_undying at victim with offset vector(1, 1.5, 1) with extra 0.02
+            play sound "item.totem.use" with volume 1 and pitch 1 at victim
+        if {killeffects::%attacker's uuid%::fire} is true:
+            make 200 of flame at victim with offset vector(1, 1.5, 1) with extra 0.02
+            play sound "entity.generic.extinguish_fire" with volume 1 and pitch 1 at victim
+        if {killeffects::%attacker's uuid%::WaxOn} is true:
+            make 200 of wax_on at victim with offset vector(1, 1.5, 1) with extra 0.02
+            play sound "item.totem.use" with volume 1 and pitch 1 at victim
+        if {killeffects::%attacker's uuid%::Explosion} is true:
+            make 50 of explosion at victim with offset vector(1, 1.5, 1) with extra 0.02
+            play sound "sound.entity.tnt.primed" with volume 1 and pitch 1 at victim
+
+    
+command /resetkilleffect <player>:
+    permission: server.killeffect
+    trigger:
+        delete {killeffects::%arg-1's uuid%::*}
+        send "&fYou reset your kill effects" to arg-1
+        set {killeffects::%arg-1's uuid%::WaxOn} to true
+        set {killeffects::%arg-1's uuid%} to true
+
+on join:
+    if {killeffects::%player's uuid%} is not set:
+        make console execute command "resetkilleffect %player%"
+
+command /rka:
+    permission: op
+    trigger:
+        delete {killeffects::*}
+        send "&b&lKillEffects &8&l| &fReset All Killeffects For All Users!"
+        loop all players:
+            set {killeffects::%loop-player's uuid%} to true
+            set {killeffects::%loop-player's uuid%::WaxOn} to true
