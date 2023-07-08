@@ -1,0 +1,73 @@
+command /chatcolor <text>:
+    permission: server.chatcolor
+    trigger:
+        if arg-1 is "black":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::black} to true
+            set {chatcolor::%player's uuid%::2} to "0"
+            set {chatcolor::%player's uuid%::1} to "0"
+        if arg-1 is "white":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::white} to true
+            set {chatcolor::%player's uuid%::1} to "FBFBFB"
+            set {chatcolor::%player's uuid%::2} to "FBFBFB"
+        if arg-1 is "blue":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::blue} to true
+            set {chatcolor::%player's uuid%::2} to "0622FB"
+            set {chatcolor::%player's uuid%::2} to "1683FD"
+        if arg-1 is "light_blue":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::light_blue} to true
+            set {chatcolor::%player's uuid%::2} to "2C9AFB"
+            set {chatcolor::%player's uuid%::2} to "97F2FD"
+        if arg-1 is "purple":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::purple} to true
+            set {chatcolor::%player's uuid%::2} to "C075F1"
+            set {chatcolor::%player's uuid%::2} to "7E2995"
+        if arg-1 is "pink":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::pink} to true
+            set {chatcolor::%player's uuid%::2} to "EA00FB"
+            set {chatcolor::%player's uuid%::2} to "7836FD"
+        if arg-1 is "lime":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::lime} to true
+            set {chatcolor::%player's uuid%::2} to "54F119"
+            set {chatcolor::%player's uuid%::2} to "00FF07"
+        if arg-1 is "green":
+            delete {chatcolor::%player's uuid%::*}
+            set {chatcolor::%player's uuid%::green} to true
+            set {chatcolor::%player's uuid%::2} to "40B613"
+            set {chatcolor::%player's uuid%::2} to "009504"
+
+on chat:
+    if {chatcolor::%player's uuid%::green} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::lime} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::black} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::pink} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::purple} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::blue} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::light_blue} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+    if {chatcolor::%player's uuid%::white} is set:
+        cancel event
+        send formatted gradient("%coloured player's prefix%%player%: <reset>%message%", ("%{chatcolor::%player's uuid%::1}%", "%{chatcolor::%player's uuid%::2}%")) to all players
+
+on tab complete of "/chatcolor":
+    set tab completions for position 1 to "white", "black", "green", "purple", "pink", "light_blue", "lime", "blue"
+
