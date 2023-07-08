@@ -1,0 +1,34 @@
+command /link:
+    trigger:
+        if {discord.linked::%player's uuid%} isn't set:
+            set {_link} to a random integer between 10000 and 99999
+            set {linking::%{_link}%} to player
+            send "&9&lDISCORD &8→ &7Your code is &e%{_link}% &7now go to discord and do &e!link %{_link}%" to player
+        else:
+            send "&9&lDISCORD &8→ &7You're account is already linked to &e%{discord.linked::%player's uuid%}%" to player
+    
+discord command !link [<integer>]:
+    trigger:
+        set {_link} to arg-1
+        if {linking::%{_link}%} is set:
+            set {discord.linked::%{linking::%{_link}%}'s uuid%} to event-member
+            make embed:
+                set title of embed to "Linked!"
+                set author of the embed to "Bot Made From Hack"
+                set embed color of embed to lime
+                set description of embed to "You've successfully linked your account to `%{linking::%{_link}%}%`!"
+                set footer of embed to "ShowzBoxx"
+                set timestamp of embed to now
+            reply with last made embed
+            set the nickname of event-member to "%{linking::%{_link}%}%"
+            make console execute command "crates key give %{linking::%{_link}%}% gear 1"
+            stop
+        else:
+            make embed:
+                set title of embed to "Error"
+                set author of the embed to "Bot Made From Hack"
+                set embed color of embed to red
+                set description of embed to "You're linking process wont work ./link again please!"
+                set footer of embed to "ShowzBoxx"
+                set timestamp of embed to now
+            reply with last made embed
