@@ -1,0 +1,128 @@
+on load:
+    if {prefix} is not set:
+        set {prefix} to "&6Skript-Essentials"
+options:
+    prefix: %{prefix}%
+    error: &4&lError
+
+command /gamemode <text> [<player>]:
+    trigger:
+        if arg-1 is set:
+            if arg-1 is "Creative":
+                if player has permission "SkEssentials.gmc" or "Skessentials.*":
+                    if arg-2 is set:
+                        set arg-2's gamemode to creative
+                    else:
+                        set player's gamemode to creative
+                else:
+                    send "{@error}"
+            if arg-1 is "Survival":
+                if player has permission "SkEssentials.gms" or "SkEssentials.*":
+                    if arg-2 is set:
+                        set arg-2's gamemode to survival
+                    else:
+                        set player's gamemode to survival
+            if arg-1 is "Adventure":
+                if player has permission "SkEssentials.gma" or "SkEssentials.*":
+                    if arg-2 is set:
+                        set arg-2's gamemode to adventure
+                    else:
+                        set player's gamemode to adventure
+            if arg-1 is "Spectator":
+                if player has permission "SkEssentials.gmsp" or "SkEssentials.*":
+                    if arg-2 is set:
+                        set arg-2's gamemode to Spectator
+                    else:
+                        set player's gamemode to Spectator
+        else:
+            send "{@error} &cInvalid Syntax"
+
+command /gmc [<player>]:
+    trigger:
+        if player has permission "SkEssentials.gmc" or "SkEssentials.*":
+            if arg-1 is not set:
+                set player's gamemode to creative
+                send "{@prefix} &6Gamemode Changed To Creative!"
+            if arg-1 is set:
+                set arg-1's gamemode to creative
+                send "{@prefix} &6Gamemode Changed To Creative!" to arg-1
+                send "{@prefix} &6Changed %arg-1%'s Gamemode To Creative!" to player
+        else:
+            send "{@error} Invalid Permissions! Contact A Administrator!"
+
+command /gmsp [<player>]:
+    trigger:
+        if player has permission "SkEssentials.gmsp" or "SkEssentials.*":
+            if arg-1 is not set:
+                set player's gamemode to Spectator
+                send "{@prefix} &6Gamemode Changed To Spectator!"
+            if arg-1 is set:
+                set arg-1's gamemode to Spectator
+                send "{@prefix} &6Gamemode Changed To Spectator!" to arg-1
+                send "{@prefix} &6Changed %arg-1%'s Gamemode To Spectator!" to player
+        else:
+            send "{@error} Invalid Permissions! Contact A Administrator!"
+command /gms [<player>]:
+    trigger:
+        if player has permission "SkEssentials.gms" or "SkEssentials.*":
+            if arg-1 is not set:
+                set player's gamemode to Survival
+                send "{@prefix} &6Gamemode Changed To Survival!"
+            if arg-1 is set:
+                set arg-1's gamemode to Survival
+                send "{@prefix} &6Gamemode Changed To Survival!" to arg-1
+                send "{@prefix} &6Changed %arg-1%'s Gamemode To Survival!" to player
+        else:
+            send "{@error} Invalid Permissions! Contact A Administrator!"
+command /gma [<player>]:
+    trigger:
+        if player has permission "SkEssentials.gma" or "SkEssentials.*":
+            if arg-1 is not set:
+                set player's gamemode to adventure
+                send "{@prefix} &6Gamemode Changed To Adventure mode!"
+            if arg-1 is set:
+                set arg-1's gamemode to Adventure mode
+                send "{@prefix} &6Gamemode Changed To Adventure mode!" to arg-1
+                send "{@prefix} &6Changed %arg-1%'s Gamemode To Adventure mode!" to player
+        else:
+            send "{@error} Invalid Permissions! Contact A Administrator!"
+command /SkEssentials <text> [<text>] [<offline player>]:
+    permission: op
+    trigger:
+        if arg-1 is "reload":
+            make player execute command "sk reload skessentials.sk"
+            wait 2 seconds
+            send "{@prefix} &6Reloaded Config"
+        if arg-1 is "Prefix":
+            if arg-2 is set:
+                set {prefix} to arg-2
+                send "{@prefix} Has Been Set To {@prefix}"
+            if arg-2 is not set:
+                send "{@error} &cInvalid Syntax"
+                stop
+        if arg-1 is "help":
+            send "&6>> {@prefix} &6<<"
+            send ""
+            send "&61. <tooltip:&6Reloads The Skript!>/Skessentials Reload"
+            send "&62. <tooltip:&6Set Your Custom Prefix>&6/SkEssentials Prefix (prefix here)"
+            send "&63. <tooltip:&6Whitelist Your Friends!>&6/SkEssentials Whitelist (add remove!)"
+            send "&64. <tooltip:&6/Gmc Etc>/gamemodes (/gmc)"
+            send "&6>> Coming Soon <<"
+        if arg-1 is "Whitelist":
+            if arg-2 is set:
+                if arg-2 is "add":
+                    if arg-3 is set:
+                        send "{@prefix} &6Player Has Been Added To Whitelist!"
+                        make console execute command "Whitelist add %arg-3%"
+                if arg-2 is "remove":
+                    if arg-3 is set:
+                        send "{@prefix} &6Player Has Been Added To Whitelist!"
+            if arg-2 is not set:
+                send "{@error} &cInvalid Syntax"
+                    if arg-3 is not set:
+                        send "{@error} &cInvalid Syntax"
+                
+                    
+
+
+
