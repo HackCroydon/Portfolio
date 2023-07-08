@@ -1,0 +1,67 @@
+command /keyallgui:
+    permission: keyall.gui
+    permission message: &cSorry You Dont Have Permission
+    trigger:
+        set {_p} to "%player%" parsed as player
+        open chest inventory with 3 rows named "&8[ &aKeyall Menu &8]" to player
+        set slot 0 and 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 and 17 and 18 and 19 and 20 and 21 and 23 and 24 and 25 and 26 and 27 of player's current inventory to gray stained glass pane named "&6"
+        set slot 10 of player's current inventory to dirt named "&7Keyall &8: &f10"
+        set slot 11 of player's current inventory to cobblestone named "&7Keyall &8: &f20"
+        set slot 12 of player's current inventory to Copper Block named "&7Keyall &8: &f30"
+        set slot 13 of player's current inventory to iron block named "&7Keyall &8: &f40"
+        set slot 14 of player's current inventory to Gold block named "&7Keyall &8: &f50"
+        set slot 15 of player's current inventory to Diamond Block named "&7Keyall &8: &f60" 
+        set slot 16 of player's current inventory to Bedrock named "&7Keyall &8: &f75"
+        set slot 22 of player's current inventory to barrier named "&cClose"
+
+
+
+on inventory click:
+    name of event-inventory is "&8[ &aKeyall Menu &8]":
+        if index of event-slot is 0 and 1 and 2 and 3 and 4 and 5 and 6 and 7 and 8 and 9 and 17 and 18 and 19 and 20 and 21 and 23 and 24 and 25 and 26 and 27:
+            cancel event
+        if index of event-slot is 10:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 1"
+            execute console command "crate key give * afk 3"
+            execute console command "crates key give * casino 1"
+        if index of event-slot is 11:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 1"
+            execute console command "crate key give * afk 5"
+            execute console command "crates key give * casino 2"
+        if index of event-slot is 12:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 2"
+            execute console command "crate key give * afk 6"
+            execute console command "crates key give * casino 3"
+        if index of event-slot is 13:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 2"
+            execute console command "crate key give * afk 7"
+            execute console command "crates key give * casino 3"
+        if index of event-slot is 14:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 3"
+            execute console command "crate key give * afk 10"
+            execute console command "crates key give * casino 4"
+        if index of event-slot is 15:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 3"
+            execute console command "crate key give * afk 12"
+            execute console command "crates key give * casino 4"
+        if index of event-slot is 16:
+            cancel event
+            make console execute command "title Keyall!"
+            execute console command "crates key give * gear 4"
+            execute console command "crate key give * afk 13"
+            execute console command "crates key give * casino 5"
+        if index of event-slot is 22:
+            close player's inventory
+            cancel event
